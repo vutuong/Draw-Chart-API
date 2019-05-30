@@ -1,6 +1,6 @@
 import requests
 import json
-url    = 'http://172.27.230.12:8881/'
+url    = 'http://x.x.x.x:8881/'
 headers    = {"Content-Type":"application/json"}
 
 def post(ip, command):
@@ -9,4 +9,4 @@ def post(ip, command):
 	launchJobinfo = json.loads(response.text)
 	print(launchJobinfo)
 	print(launchJobinfo['result'])
-post('118.70.0.58', 'show version')
+post('ip thiet bi', 'show version')
