@@ -1,0 +1,27 @@
+
+.chart{
+  vertical-align: middle;
+  width: 1%;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+
+}
+#myChart{
+  vertical-align: middle;
+  width: 1%;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+
+}
+p {
+  text-align: center;
+  font-family:'Verdana', sans-serif;
+  font-size: 10px;
+}
+
+canvas{
+  height: 1%;
+  width: 0.5%;
+}

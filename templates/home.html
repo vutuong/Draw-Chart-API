@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+  <script type="text/js" href="{{url_for('static', filename='drawChart.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<!--  //    var ctx = document.getElementById('myChart').getContext('2d');
+ //    var chart = new Chart(ctx, {
+ //    // The type of chart we want to create
+ //    type: 'line',
+
+ //    // The data for our dataset
+ //    data: {
+ //        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+ //        datasets: [{
+ //            label: 'My First dataset',
+ //            backgroundColor: 'rgb(255, 99, 132)',
+ //            borderColor: 'rgb(255, 99, 132)',
+ //            data: [0, 10, 5, 2, 20, 30, 45]
+ //        }]
+ //    },
+
+ //    // Configuration options go here
+ //    options: {}
+	// });
+
+// var chart = new Chart(ctx, {
+//     // The type of chart we want to create
+//     type: 'line',
+
+//     // The data for our dataset
+//     data: {
+//         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+//         datasets: [{
+//             label: 'My First dataset',
+//             backgroundColor: 'rgb(255, 99, 132)',
+//             borderColor: 'rgb(255, 99, 132)',
+//             data: [0, 10, 5, 2, 20, 30, 45]
+//         }]
+//     },
+
+//     // Configuration options go here
+//     options: {}
+// }); -->
+<!-- <style>
+* {
+  box-sizing: border-box;
+}
+
+.chart{
+  vertical-align: middle;
+  width: 2%;
+  height: 2%;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+
+}
+#myChart{
+  vertical-align: middle;
+  width: 2%;
+  height: 2%;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+
+}
+p {
+  text-align: center;
+  font-family:'Verdana', sans-serif;
+  font-size: 10px;
+}
+
+canvas{
+  height: 2%;
+}
+</style> -->
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h2>Biều đồ thay đổi pool</h2>
+            <form class="navbar-form" role="search">
+              <div class="input-group add-on">
+                <input class="form-control" placeholder="Search" id="searchfield" name="searchfield" type="text" >
+                <div class="input-group-btn">
+                  <!-- <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button> -->
+                  <button class="btn btn-default" type="button" onclick="createChart()"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+            </form>
+            </div>
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 id = "titleChart1" class="panel-title"></h3>
+                    </div>
+                    <div class="panel-content text-center">
+                        <canvas id="myChart1" class="chart"></canvas>
+                    </div>
+                    <div class="panel-footer">A simple Line Chart with basic settings</div>
+                </div>
+            </div>
+            
+            <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 id = "titleChart2" class="panel-title"></h3>
+                    </div>
+                    <div class="panel-content text-center">
+                        <canvas id="myChart2" class="chart"></canvas>
+                    </div>
+                    <div class="panel-footer">A simple Line Chart with basic settings</div>
+                </div>
+            </div>
+          
+          <div class="col-xs-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 id = "titleChart3" class="panel-title"></h3>
+                    </div>
+                    <div class="panel-content text-center">
+                        <canvas id="myChart3" class="chart"></canvas>
+                    </div>
+                    <div class="panel-footer">A simple Line Chart with basic settings</div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 id = "titleChart4" class="panel-title"></h3>
+                    </div>
+                    <div class="panel-content text-center">
+                        <canvas id="myChart4" class="chart"></canvas>
+                    </div>
+                    <div class="panel-footer">A simple Line Chart with basic settings</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+
+</html>
+
+<script type="text/javascript">
+  // $(".glyphicon").click(function() {
+  // var searchstring = $('input[name=srch-term]');
+  // searchstring.focus();
+  // //$('#searchBox').html($('input:searchfield').val());
+  // alert("searchfield.  " + searchstring +  " hahah");
+  // });
+  // function StringSearch() {
+  //   var SearchTerm = document.getElementById("searchfield").value;
+  //   console.log(SearchTerm);
+  // }
+
+	createChart()
+	function createChart() {
+      if (document.getElementById("searchfield").value) {
+        var search_pool = document.getElementById("searchfield").value;
+      }
+      else{
+        var search_pool = "MegaYou";
+      }
+	    var data_pool;
+	    var url_pool = 'http://172.27.230.19:8888/poolip_api/report_free_list/'
+	    var user = 'tuongvx'
+	    var password = 'abcd@1234'
+	    $.ajax({
+	    	type: 'GET',
+	    	url : url_pool,
+	    	dataType: 'json',
+	    	headers: {
+	    		'Authorization': 'Basic ' + btoa(user + ':' + password)
+	    	},
+	    	success: function (data){
+	    		data_pool = data;
+          var list_time = [];
+          var list_time_draw = [];
+          var list_pool = [];
+          var data = [];
+          var time = [];
+          var data1 = [];
+          var data2 = [];
+          var data3 = [];
+          var pool_name = search_pool;
+          document.getElementById('titleChart1').innerHTML = pool_name;
+          document.getElementById('titleChart2').innerHTML = pool_name;
+          document.getElementById('titleChart3').innerHTML = pool_name;
+          document.getElementById('titleChart4').innerHTML = pool_name;
+	    		for (i = 0; i < data_pool.length; i++){
+            if (list_pool.includes(data_pool[i]['name'] + '_' + data_pool[i]['pool_type']) == false){
+              list_pool.push(data_pool[i]['name'] + '_' + data_pool[i]['pool_type']);
+            }
+            if (list_time.includes(data_pool[i]['created']) == false){
+              list_time.push(data_pool[i]['created']);
+            }
+          }
+          list_time_draw = [list_time[list_time.length-3], list_time[list_time.length-2], list_time[list_time.length-1]]
+          // console.log(list_time_draw)
+          for (i = 0; i < data_pool.length; i++){
+            if (data_pool[i]['created'] == list_time_draw[0] & data_pool[i]['name'] == pool_name & data_pool[i]['pool_type'] == 'Default'){
+              data1.push(data_pool[i]['free']);
+              data1.push(data_pool[i]['used']);
+            }
+            if (data_pool[i]['created'] == list_time_draw[1] & data_pool[i]['name'] == pool_name & data_pool[i]['pool_type'] == 'Default'){
+              data2.push(data_pool[i]['free']);
+              data2.push(data_pool[i]['used']);
+            }
+            if (data_pool[i]['created'] == list_time_draw[2] & data_pool[i]['name'] == pool_name & data_pool[i]['pool_type'] == 'Default'){
+              data3.push(data_pool[i]['free']);
+              data3.push(data_pool[i]['used']);
+            }
+          }
+          for (i = 0; i < data_pool.length; i++){
+            if (data_pool[i]['name'] == pool_name & data_pool[i]['pool_type'] == 'Default'){
+              // data.push((data_pool[i]['used']/(data_pool[i]['free']+data_pool[i]['used'])).toPrecision(2));
+              data.push((data_pool[i]['used']/(data_pool[i]['free']+data_pool[i]['used'])));
+              time.push(data_pool[i]['created']);
+            }
+          }
+          // Ve thoi gian 1
+	   			var ctx = document.getElementById('myChart1').getContext('2d');
+			    var chart = new Chart(ctx, {
+			    // The type of chart we want to create
+			    type: 'pie',
+			    label: 'My First dataset',
+			    // The data for our dataset
+			    data: {
+			        labels: ['Free', 'Used'],
+			        datasets: [{
+			        	label: '# of Votes',
+			            backgroundColor: ['rgb(255, 99, 132)','#46BFBD'],
+			            borderColor: '#46BFBD',
+			            // data: [data_pool[data_pool.length-7]['free'], data_pool[data_pool.length-7]['used']]
+                  data: data1
+			        }]
+			    },
+			    // Configuration options go here
+			    options: {
+			    	title: {
+			            display: true,
+			            text: list_time_draw[0]
+			            // text: ''
+			        }
+			     }
+				  });
+
+          // Ve thoi gian 2
+          var ctx = document.getElementById('myChart2').getContext('2d');
+          var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'pie',
+          label: 'My First dataset',
+          // The data for our dataset
+          data: {
+              labels: ['Free', 'Used'],
+              datasets: [{
+                label: '# of Votes',
+                  backgroundColor: ['rgb(255, 99, 132)','#46BFBD'],
+                  borderColor: '#46BFBD',
+                  // data: [data_pool[data_pool.length-7]['free'], data_pool[data_pool.length-7]['used']]
+                  data: data2
+              }]
+          },
+          // Configuration options go here
+          options: {
+            title: {
+                  display: true,
+                  text: list_time_draw[1]
+                  // text: ''
+              }
+           }
+          });
+          // Ve thoi gian 3
+          var ctx = document.getElementById('myChart3').getContext('2d');
+          var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'pie',
+          label: 'My First dataset',
+          // The data for our dataset
+          data: {
+              labels: ['Free', 'Used'],
+              datasets: [{
+                label: '# of Votes',
+                  backgroundColor: ['rgb(255, 99, 132)','#46BFBD'],
+                  borderColor: '#46BFBD',
+                  // data: [data_pool[data_pool.length-7]['free'], data_pool[data_pool.length-7]['used']]
+                  data: data2
+              }]
+          },
+          // Configuration options go here
+          options: {
+            title: {
+                  display: true,
+                  text: list_time_draw[2]
+                  // text: ''
+              }
+           }
+          });
+
+          //Ve so do tong su dung
+          // Ve thoi gian 3
+          var ctx = document.getElementById('myChart4').getContext('2d');
+          var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          // The type of chart we want to create
+          type: 'line',
+
+          // The data for our dataset
+          data: {
+              labels: time,
+              datasets: [{
+                  label: 'Used rate',
+                  // backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: data
+              }]
+          },
+          // Configuration options go here
+          options: {
+            title: {
+                  display: true,
+                  text: pool_name + ' Pool rate'
+                  // text: ''
+              }
+           }
+          });
+
+	    	}
+	    });
+	}
+</script>
